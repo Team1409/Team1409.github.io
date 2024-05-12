@@ -29,4 +29,7 @@ export default defineNuxtConfig({
       script: [{ src: "/env.js" }],
     },
   },
+  build: {
+    transpile: ["primevue"],
+  },
 });
