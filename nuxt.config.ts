@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   ],
   proxy: {
     options: {
-      target: "https://ac8a-77-40-253-116.ngrok-free.app",
+      target: "https://9fd3-185-244-159-253.ngrok-free.app",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "/",

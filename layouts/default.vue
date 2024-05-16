@@ -39,6 +39,7 @@
 import { ref } from "vue";
 
 const items = ref([
-  { label: "Proxy", icon: "pi pi-arrow-right-arrow-left", route: "/" },
+  { label: "Accounts", icon: "pi pi-arrow-right-arrow-left", route: "/" },
+  { label: "Proxies", icon: "pi pi-arrow-right-arrow-left", route: "/proxies" },
 ]);
 </script>

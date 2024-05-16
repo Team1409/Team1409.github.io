@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProxyResponseApi } from "../../api/apiSchemas";
+import type { ProxyResponseApi } from "../../client";
 import { proxyFields } from "./fields";
 
 const fields = ref(proxyFields);

@@ -52,7 +52,7 @@
 <script lang="ts" setup>
 import type { ColumnProps } from "primevue/column";
 import { proxyFields } from "./fields";
-import type { ProxyResponseApi } from "../../api/apiSchemas";
+import type { ProxyResponseApi } from "../../client";
 
 defineProps(["proxies"]);
 
