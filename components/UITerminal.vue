@@ -21,7 +21,7 @@ const attempts = ref(3);
 const sec = ref(10);
 const isDestroying = ref(false);
 
-const destroy = () => {
+const destroyApp = () => {
   isDestroying.value = true;
 
   setTimeout(() => {
@@ -43,15 +43,15 @@ onMounted(() => {
 
     if (sec.value <= 0) {
       clearTimeout(timeout);
-      destroy();
+      destroyApp();
     }
   }, 1000);
 
-  document
-    .querySelectorAll(".p-terminal, .p-splitter, .p-menu")
-    .forEach((el) => {
+  setTimeout(() => {
+    document.querySelectorAll(".p-terminal, .p-toolbar, body").forEach((el) => {
       el.classList.add("destroying");
     });
+  }, 1000);
 });
 
 onBeforeUnmount(() => {
@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
 });
 
 const commandHandler = (text) => {
-  if (isDestroying) {
+  if (isDestroying.value) {
     TerminalService.emit("response", `You are loser!`);
     return;
   }
@@ -69,7 +69,7 @@ const commandHandler = (text) => {
   if (attempts.value === 0) {
     TerminalService.emit("response", `It's your the worst day!`);
 
-    destroy();
+    destroyApp();
     return;
   }
 

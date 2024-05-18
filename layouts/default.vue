@@ -1,55 +1,36 @@
 <template>
-  <Splitter class="h-full">
-    <SplitterPanel :size="25" :minSize="10" :maxSize="30">
-      <Menu :model="items" :class="$style.menu" class="w-full h-full">
-        <template #item="{ item, props, hasSubmenu }">
-          <router-link
-            v-if="item.route"
-            v-slot="{ href, navigate, isActive }"
-            :to="item.route"
-            custom
-          >
-            <a
-              v-ripple
-              :href="href"
-              v-bind="props.action"
-              @click="navigate"
-              :class="isActive ? $style.active : ''"
-            >
-              <span :class="item.icon" />
-              <span class="ml-2">{{ item.label }}</span>
-            </a>
-          </router-link>
-          <a
-            v-else
-            v-ripple
-            :href="item.url"
-            :target="item.target"
-            v-bind="props.action"
-          >
-            <span :class="item.icon" />
-            <span class="ml-2">{{ item.label }}</span>
-            <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2" />
-          </a>
-        </template>
-      </Menu>
-    </SplitterPanel>
-
-    <SplitterPanel :size="75">
-      <div class="p-2 h-full"><slot></slot></div>
-    </SplitterPanel>
-  </Splitter>
+  <div class="p-2 h-full">
+    <slot></slot>
+  </div>
 
   <UITerminal v-if="isTerminalVisible" />
 
-  <Dock :model="dockItems" position="bottom">
-    <template #icon="{ item }">
-      <img
-        :alt="item.label"
-        :src="item.icon"
-        style="width: 100%"
-        @click="item.onClick"
-      />
+  <Dock :model="items" position="bottom">
+    <template #item="{ item }">
+      <router-link
+        v-if="item.route"
+        v-slot="{ href, navigate, isActive }"
+        :to="item.route"
+        custom
+      >
+        <a
+          :href="href"
+          @click="navigate"
+          class="p-dock-link"
+          :aria-label="item.label"
+          :class="[isActive ? $style.active : '', $style.link]"
+        >
+          <span :class="[item.icon, $style.icon]" />
+        </a>
+      </router-link>
+      <span v-else class="p-dock-link">
+        <img
+          :alt="item.label"
+          :src="item.img"
+          style="width: 100%"
+          @click="item.onClick"
+        />
+      </span>
     </template>
   </Dock>
 </template>
@@ -61,25 +42,19 @@ const toast = useToast();
 const isTerminalVisible = ref(false);
 
 const items = ref([
-  { label: "Accounts", icon: "pi pi-arrow-right-arrow-left", route: "/" },
-  { label: "Proxies", icon: "pi pi-arrow-right-arrow-left", route: "/proxies" },
-]);
-
-const dockItems = ref([
   {
-    label: "Finder",
-    icon: "https://primefaces.org/cdn/primevue/images/dock/finder.svg",
-    onClick: () => {
-      toast.add({
-        severity: "success",
-        summary: "Мощно, ага?",
-        life: 2000,
-      });
-    },
+    label: "Accounts",
+    icon: "pi pi-users",
+    route: "/",
+  },
+  {
+    label: "Proxies",
+    icon: "pi pi-sort-alt-slash",
+    route: "/proxies",
   },
   {
     label: "App Store",
-    icon: "https://primefaces.org/cdn/primevue/images/dock/appstore.svg",
+    img: "https://primefaces.org/cdn/primevue/images/dock/appstore.svg",
     onClick: () =>
       toast.add({
         severity: "success",
@@ -89,7 +64,7 @@ const dockItems = ref([
   },
   {
     label: "Photos",
-    icon: "https://primefaces.org/cdn/primevue/images/dock/photos.svg",
+    img: "https://primefaces.org/cdn/primevue/images/dock/photos.svg",
     onClick: () =>
       toast.add({
         severity: "warn",
@@ -99,7 +74,7 @@ const dockItems = ref([
   },
   {
     label: "Trash",
-    icon: "https://primefaces.org/cdn/primevue/images/dock/trash.png",
+    img: "https://primefaces.org/cdn/primevue/images/dock/trash.png",
     onClick: () => {
       toast.add({
         severity: "error",
@@ -115,7 +90,24 @@ const dockItems = ref([
 
 <style module>
 .active {
-  box-shadow: -2px 0px 0 var(--primary-color);
   color: var(--primary-color);
+}
+
+.icon {
+  font-size: 2.3rem;
+  overflow: hidden;
+}
+
+.link {
+  background: white;
+  border-radius: 6px;
+  position: relative;
+
+  &::after {
+    /* content: attr(aria-label); */
+    display: block;
+    position: absolute;
+    top: 100%;
+  }
 }
 </style>

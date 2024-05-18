@@ -28,6 +28,7 @@ export default defineNuxtConfig({
     head: {
       script: [{ src: "/env.js" }],
     },
+    pageTransition: { name: "page", mode: "out-in" },
   },
   build: {
     transpile: ["primevue"],

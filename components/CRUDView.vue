@@ -18,18 +18,18 @@
     <div class="flex-auto min-h-0">
       <slot name="table" :list="list" @edit="onEdit" @delete="onDelete"></slot>
     </div>
+    
+    <Dialog
+      v-model:visible="isFormOpened"
+      :style="{ width: '450px' }"
+      header="Details"
+      :modal="true"
+      class="p-fluid"
+      @hide="() => (itemOnEdit = undefined)"
+    >
+      <slot name="form" :item="itemOnEdit" @success="onFormSuccess"></slot>
+    </Dialog>
   </div>
-
-  <Dialog
-    v-model:visible="isFormOpened"
-    :style="{ width: '450px' }"
-    header="Details"
-    :modal="true"
-    class="p-fluid"
-    @hide="() => (itemOnEdit = undefined)"
-  >
-    <slot name="form" :item="itemOnEdit" @success="onFormSuccess"></slot>
-  </Dialog>
 </template>
 
 <script
