@@ -1,5 +1,5 @@
 <template>
-  <AccountView />
+  <AccountViewRoot />
 </template>
 
 <script setup lang="ts"></script>

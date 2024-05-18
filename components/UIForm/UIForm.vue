@@ -26,7 +26,7 @@ const emit = defineEmits<{ (e: "finish", data: any): void }>();
 
 const formData = reactive<Record<string, unknown>>(initialData ?? {});
 const rules = computed(() =>
-  Object.fromEntries(fields.map((field) => [field.name, field.rules]))
+  Object.fromEntries(fields.map((field) => [field.name, field.rules ?? []]))
 );
 
 const $v = useVuelidate(rules, formData);

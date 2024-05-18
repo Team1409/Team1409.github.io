@@ -3,7 +3,7 @@
     <FloatLabel>
       <label :for="id">{{ label }}</label>
       <div>
-        <component :is="input" :id="id" v-model="model" v-bind="$attrs" />
+        <component :is="input" :id="id" v-model="model" v-bind="attrs" />
       </div>
       <small
         v-if="hasError"
@@ -22,6 +22,7 @@ import InputNumber from "primevue/inputnumber";
 import type { FormField } from "./types";
 import InputText from "primevue/inputtext";
 import InputMask from "primevue/inputmask";
+import Password from "primevue/password";
 
 const { as } = defineProps<{
   label: string;
@@ -29,6 +30,8 @@ const { as } = defineProps<{
   errors?: any[];
   as: FormField["as"];
 }>();
+
+const { component, ...attrs } = useAttrs();
 
 const model = defineModel();
 
@@ -42,6 +45,10 @@ const input = computed(() => {
       return InputNumber;
     case "mask":
       return InputMask;
+    case "password":
+      return Password;
+    case "custom":
+      return component;
     default:
       return () => `Input type ${as}: Not Found`;
   }

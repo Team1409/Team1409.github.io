@@ -2,6 +2,8 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+
+  <Toast position="bottom-left" />
 </template>
 
 <script lang="ts" setup>

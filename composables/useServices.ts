@@ -7,7 +7,7 @@ import {
 // @ts-expect-error
 const config = new Configuration({ basePath: window.API_URL ?? "/api" });
 
-const services = {
+export const services = {
   AccountEndpointsApi: new AccountEndpointsApi(config),
   ProxyEndpointsApi: new ProxyEndpointsApi(config),
 };

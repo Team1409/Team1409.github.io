@@ -23,4 +23,24 @@ export const portField: FormField = {
   mask: "9999",
 };
 
-export const proxyFields = [nameField, hostField, portField];
+export const loginField: FormField = {
+  name: "login",
+  label: "Login",
+  as: "text",
+};
+
+export const passwordField: FormField = {
+  name: "password",
+  label: "Password",
+  as: "password",
+  feedback: false,
+  toggleMask: true,
+};
+
+export const proxyFields = [
+  nameField,
+  hostField,
+  portField,
+  loginField,
+  passwordField,
+];

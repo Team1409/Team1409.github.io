@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["nuxt-primevue", "nuxt-proxy"],
+  modules: ["nuxt-primevue", "nuxt-proxy", "@hebilicious/vue-query-nuxt"],
   primevue: {
     components: {
       exclude: ["Editor", "Chart"],
@@ -9,13 +9,13 @@ export default defineNuxtConfig({
   },
   css: [
     "primeflex/primeflex.css",
-    "primevue/resources/themes/md-dark-deeppurple/theme.css",
+    "primevue/resources/themes/aura-dark-purple/theme.css",
     "@/assets/main.css",
     "primeicons/primeicons.css",
   ],
   proxy: {
     options: {
-      target: "https://9fd3-185-244-159-253.ngrok-free.app",
+      target: "http://localhost:8080",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "/",
