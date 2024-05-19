@@ -15,7 +15,7 @@
   </form>
 </template>
 
-<script lang="ts" setup generic="T extends object">
+<script lang="ts" setup generic="T extends Record<string, unknown>">
 import { useVuelidate } from "@vuelidate/core";
 import type { FormField } from "./types";
 

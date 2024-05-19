@@ -15,7 +15,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useAddProxy, useRemoveProxy, useUpdateProxy } from "../../queries";
+import type { ProxyResponseApi } from "../../client";
+import {
+  useAddProxy,
+  useRemoveProxy,
+  useUpdateProxy,
+  useGetAllProxy,
+} from "../../queries";
+import type { CRUDService } from "../../types";
 import { proxyFields } from "./fields";
 // const { params } = useRoute();
 // console.log(params);
@@ -26,7 +33,8 @@ const { mutateAsync: add } = useAddProxy();
 const { mutateAsync: remove } = useRemoveProxy();
 const { mutateAsync: update } = useUpdateProxy();
 
-const service = shallowRef({
+const service = shallowRef<CRUDService<ProxyResponseApi>>({
+  getAll: useGetAllProxy,
   add,
   remove,
   update,

@@ -35,15 +35,13 @@
 <script
   setup
   lang="ts"
-  generic="TItem extends BaseItem, TAddRequest, TUpdateRequest, TService extends CRUDService<TItem, TAddRequest, TUpdateRequest>"
+  generic="TItem extends BaseItem, TService extends CRUDService<TItem>"
 >
 import type { CRUDService, BaseItem } from "../types";
-import { queryKeys, type QueryKeys } from "../queries";
 
-const { service, queryName } = defineProps<{
+const { service } = defineProps<{
   title: string;
   service: TService;
-  queryName: keyof QueryKeys;
 }>();
 
 const toast = useToast();
@@ -51,7 +49,7 @@ const isFormOpened = ref(false);
 const itemOnEdit = ref<TItem>();
 
 // Fetch all list
-const { data: list } = useQuery(queryKeys[queryName].all);
+const { data: list } = service.getAll();
 
 const closeForm = () => (isFormOpened.value = false);
 

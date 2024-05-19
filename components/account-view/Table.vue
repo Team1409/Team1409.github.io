@@ -1,5 +1,9 @@
 <template>
-  <DataTable :value="accounts">
+  <UIEditableTable
+    :value="accounts"
+    @delete="$emit('delete', $event)"
+    @edit="$emit('edit', $event)"
+  >
     <Column field="name" header="Name"></Column>
     <Column field="proxyId" header="Proxy">
       <template #body="{ data }">
@@ -17,11 +21,18 @@
         />
       </template>
     </Column>
-  </DataTable>
+  </UIEditableTable>
 </template>
 
 <script lang="ts" setup>
+import type { AccountResponseApi } from "../../client";
+
 const { accounts } = defineProps(["accounts"]);
+
+defineEmits<{
+  delete: [id: number];
+  edit: [data: AccountResponseApi];
+}>();
 </script>
 
 <style module>

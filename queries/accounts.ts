@@ -6,6 +6,8 @@ import { queryKeys } from "./keys";
 
 const { AccountEndpointsApi } = services;
 
+export const useGetAllAccounts = () => useQuery(queryKeys.accounts.all);
+
 export const useAddAccount = () => {
   const queryClient = useQueryClient();
 
@@ -35,6 +37,8 @@ export const useRemoveAccount = () => {
 
 // ONLY OPTIMISTIC UPDATE IS IMPLEMENTED
 export const useUpdateAccount = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (req: {
       id: number;
@@ -44,6 +48,11 @@ export const useUpdateAccount = () => {
         id: req.id,
         upsertAccountRequestApi: req.data,
       }),
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.accounts.all.queryKey,
+      });
+    },
     scope: {
       id: "address",
     },

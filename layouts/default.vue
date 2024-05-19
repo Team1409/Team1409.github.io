@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 h-full">
+  <div class="p-2 pb-8 h-full">
     <slot></slot>
   </div>
 

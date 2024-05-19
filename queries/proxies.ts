@@ -6,6 +6,8 @@ import { queryKeys } from "./keys";
 
 const { ProxyEndpointsApi } = services;
 
+export const useGetAllProxy = () => useQuery(queryKeys.proxies.all);
+
 export const useAddProxy = () => {
   const queryClient = useQueryClient();
 
@@ -22,7 +24,7 @@ export const useAddProxy = () => {
 
 export const useRemoveProxy = () => {
   const queryClient = useQueryClient();
-console.log(queryClient);
+  console.log(queryClient);
 
   return useMutation<void, Error, number>({
     mutationFn: (id) => ProxyEndpointsApi._delete({ id }),

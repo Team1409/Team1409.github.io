@@ -1,19 +1,11 @@
-interface Request {
-  id: number;
-}
-
 export type BaseItem = {
   id?: number;
 };
 
-export type CRUDService<
-  TItem extends BaseItem,
-  AddRequest = unknown,
-  UpdateRequest = unknown
-> = {
-  getAll: () => Promise<TItem[]>;
-  get: (arg: Request) => Promise<TItem>;
-  add: (arg: AddRequest) => Promise<number>;
-  update: (arg: UpdateRequest) => Promise<void>;
-  remove: (arg: Request) => Promise<void>;
+export type CRUDService<TItem extends BaseItem> = {
+  getAll: () => { data: Ref<TItem[] | undefined> };
+//   get: (arg: number) => Promise<TItem>;
+  add: (arg: TItem) => Promise<number>;
+  update: (arg: { id: number; data: TItem }) => Promise<void>;
+  remove: (arg: number) => Promise<void>;
 };

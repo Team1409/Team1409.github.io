@@ -1,6 +1,7 @@
 <template>
   <div class="flex justify-content-end" :class="$style['form-field']">
     <Button
+      v-tooltip="'Add address'"
       severity="success"
       icon="pi pi-plus"
       class="ml-2"
