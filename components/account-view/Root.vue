@@ -15,9 +15,23 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  useAddAccount,
+  useRemoveAccount,
+  useUpdateAccount,
+} from "../../queries";
+import type { CRUDService } from "../../types";
 import { accountFields } from "./fields";
 
-const { AccountEndpointsApi } = useServices();
-const service = shallowRef(AccountEndpointsApi);
 const fields = shallowRef(accountFields);
+
+const { mutateAsync: add } = useAddAccount();
+const { mutateAsync: remove } = useRemoveAccount();
+const { mutateAsync: update } = useUpdateAccount();
+
+const service = shallowRef<CRUDService<{ id: number }>>({
+  add,
+  remove,
+  update,
+});
 </script>

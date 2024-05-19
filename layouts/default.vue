@@ -89,15 +89,6 @@ const items = ref([
 </script>
 
 <style module>
-.active {
-  color: var(--primary-color);
-}
-
-.icon {
-  font-size: 2.3rem;
-  overflow: hidden;
-}
-
 .link {
   background: white;
   border-radius: 6px;
@@ -108,6 +99,19 @@ const items = ref([
     display: block;
     position: absolute;
     top: 100%;
+  }
+
+  &.active {
+    background-color: var(--primary-color);
+  }
+}
+
+.icon {
+  font-size: 2.3rem;
+  overflow: hidden;
+
+  .active & {
+    color: white;
   }
 }
 </style>

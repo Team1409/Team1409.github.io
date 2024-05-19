@@ -3,7 +3,10 @@
     <Column field="name" header="Name"></Column>
     <Column field="proxyId" header="Proxy">
       <template #body="{ data }">
-        <ProxyDropdown :model-value="data.proxy?.id" disabled></ProxyDropdown>
+        <RouterLink :to="`/proxies/${data.proxy.id}`" v-if="data.proxy">{{
+          data.proxy.name
+        }}</RouterLink>
+        <span v-else>No proxy</span>
       </template>
     </Column>
     <Column field="addresses" header="Address">

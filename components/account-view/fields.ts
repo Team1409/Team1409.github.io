@@ -14,7 +14,6 @@ export const proxyField: FormField = {
   label: "Proxy",
   as: "custom",
   component: ProxyDropdown,
-  rules: { required },
 };
 
 export const accountFields = [nameField, proxyField];

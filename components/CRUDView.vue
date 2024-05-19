@@ -61,12 +61,10 @@ const onFormSuccess = (item: TItem) => {
     service
       .update({
         id: item.id,
-        upsertAccountRequestApi: item,
+        data: item,
       })
       .then(() => {
         closeForm();
-        const index = list.value.findIndex((v) => v.id === item.id);
-        list.value.splice(index, 1, item);
 
         toast.add({
           severity: "success",
@@ -76,9 +74,8 @@ const onFormSuccess = (item: TItem) => {
       });
   } else {
     // Otherwise add new one
-    service.add({ upsertAccountRequestApi: item }).then((id: number) => {
+    service.add(item).then((id: number) => {
       closeForm();
-      list.value.unshift({ ...item, id });
 
       toast.add({
         severity: "success",
@@ -95,10 +92,7 @@ const onEdit = (data: TItem) => {
 };
 
 const onDelete = (id: number) => {
-  service._delete({ id }).then(() => {
-    const index = list.value.findIndex((v) => v.id === id);
-    list.value.splice(index, 1);
-
+  service.remove(id).then(() => {
     toast.add({
       severity: "success",
       summary: "Deleted",
