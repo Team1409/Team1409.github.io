@@ -1,15 +1,17 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <UIFormField
-      v-for="field in fields"
-      :key="field.name"
-      v-model="$v[field.name].$model"
-      :has-error="$v[field.name].$error"
-      :errors="$v[field.name].$errors"
-      v-bind="field"
-    />
+    <div :class="[$style.layout, $style[layout]]">
+      <UIFormField
+        v-for="field in fields"
+        :key="field.name"
+        v-model="$v[field.name].$model"
+        :has-error="$v[field.name].$error"
+        :errors="$v[field.name].$errors"
+        v-bind="field"
+      />
 
-    <Button type="submit">Submit</Button>
+      <Button type="submit" :class="$style.submit">{{ submitLabel }}</Button>
+    </div>
   </form>
 </template>
 
@@ -17,10 +19,15 @@
 import { useVuelidate } from "@vuelidate/core";
 import type { FormField } from "./types";
 
-const { fields, initialData } = defineProps<{
-  fields: FormField[];
-  initialData?: T;
-}>();
+const { fields, initialData } = withDefaults(
+  defineProps<{
+    fields: FormField[];
+    initialData?: T;
+    layout?: "vertical" | "horizontal";
+    submitLabel?: string;
+  }>(),
+  { layout: "vertical", submitLabel: "Submit" }
+);
 
 const emit = defineEmits<{ (e: "finish", data: any): void }>();
 
@@ -39,3 +46,25 @@ const onSubmit = async () => {
   emit("finish", formData);
 };
 </script>
+
+<style module>
+.layout {
+  display: flex;
+}
+
+.vertical {
+  flex-direction: column;
+
+  :global(.form-field + .form-field) {
+    margin-top: 1.7rem;
+  }
+
+  .submit {
+    margin-top: 1.7rem;
+  }
+}
+
+.horizontal {
+  flex-direction: row;
+}
+</style>

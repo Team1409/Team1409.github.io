@@ -2,11 +2,11 @@ import {
   createQueryKeyStore,
   type inferQueryKeyStore,
 } from "@lukemorales/query-key-factory";
-import { services } from "./composables/useServices";
+import { services } from "../composables/useServices";
 
 const { ProxyEndpointsApi, AccountEndpointsApi } = services;
 
-export const queries = createQueryKeyStore({
+export const queryKeys = createQueryKeyStore({
   proxies: {
     all: {
       queryKey: null,
@@ -21,4 +21,4 @@ export const queries = createQueryKeyStore({
   },
 });
 
-export type QueryKeys = inferQueryKeyStore<typeof queries>;
+export type QueryKeys = inferQueryKeyStore<typeof queryKeys>;

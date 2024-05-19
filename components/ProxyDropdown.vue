@@ -3,6 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { queries } from "../queries";
-const { data: options } = useQuery(queries.proxies.all);
+import { queryKeys } from "../queries";
+const { data: options } = useQuery(queryKeys.proxies.all);
 </script>

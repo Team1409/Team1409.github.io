@@ -18,3 +18,10 @@ export const proxyField: FormField = {
 };
 
 export const accountFields = [nameField, proxyField];
+
+export const addressField: FormField = {
+  name: "address",
+  label: "Address",
+  as: "text",
+  rules: { required },
+};

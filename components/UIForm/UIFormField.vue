@@ -1,10 +1,11 @@
 <template>
-  <div :class="$style.field">
+  <div class="form-field">
     <FloatLabel>
-      <label :for="id">{{ label }}</label>
       <div>
         <component :is="input" :id="id" v-model="model" v-bind="attrs" />
       </div>
+      <label :for="id">{{ label }}</label>
+
       <small
         v-if="hasError"
         v-for="error in errors"
@@ -56,10 +57,6 @@ const input = computed(() => {
 </script>
 
 <style module>
-.field {
-  margin-bottom: 1.7rem;
-}
-
 .error {
   position: absolute;
   top: calc(100% + 0.3rem);

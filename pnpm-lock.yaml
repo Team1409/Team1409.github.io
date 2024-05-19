@@ -35,6 +35,9 @@ importers:
       nuxt-proxy:
         specifier: ^0.4.1
         version: 0.4.1(rollup@4.17.2)
+      perfect-debounce:
+        specifier: ^1.0.0
+        version: 1.0.0
       primeflex:
         specifier: ^3.3.1
         version: 3.3.1

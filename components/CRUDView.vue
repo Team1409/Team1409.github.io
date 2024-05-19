@@ -18,7 +18,7 @@
     <div class="flex-auto min-h-0">
       <slot name="table" :list="list" @edit="onEdit" @delete="onDelete"></slot>
     </div>
-    
+
     <Dialog
       v-model:visible="isFormOpened"
       :style="{ width: '450px' }"
@@ -38,7 +38,7 @@
   generic="TItem extends BaseItem, TAddRequest, TUpdateRequest, TService extends CRUDService<TItem, TAddRequest, TUpdateRequest>"
 >
 import type { CRUDService, BaseItem } from "../types";
-import { queries, type QueryKeys } from "../queries";
+import { queryKeys, type QueryKeys } from "../queries";
 
 const { service, queryName } = defineProps<{
   title: string;
@@ -51,7 +51,7 @@ const isFormOpened = ref(false);
 const itemOnEdit = ref<TItem>();
 
 // Fetch all list
-const { data: list } = useQuery(queries[queryName].all);
+const { data: list } = useQuery(queryKeys[queryName].all);
 
 const closeForm = () => (isFormOpened.value = false);
 

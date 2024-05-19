@@ -20,6 +20,7 @@
     "nuxt": "^3.11.2",
     "nuxt-primevue": "^0.3.1",
     "nuxt-proxy": "^0.4.1",
+    "perfect-debounce": "^1.0.0",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primevue": "^3.52.0",
