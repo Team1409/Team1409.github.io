@@ -6,28 +6,39 @@
     display="chip"
     placeholder="Select networks"
     class="w-full"
-    disabled
-  />
+  >
+  </MultiSelect>
 </template>
 
 <script setup lang="ts">
 import { NetworkType, type NetworkResponseApi } from "../../client";
 import { useAddNetwork, useRemoveNetwork } from "../../queries";
-
-const { networks, addressId } = defineProps<{
-  networks: NetworkResponseApi[];
+import { difference } from "lodash";
+const props = defineProps<{
+  networks: Required<NetworkResponseApi>[];
   addressId: number;
 }>();
 
 const value = computed({
   get() {
-    return networks.map((n) => ({
+    return props.networks.map((n) => ({
       networkType: n.networkType,
     }));
   },
 
   set(newValue) {
-    console.log(newValue);
+    const added = difference(newValue, props.networks);
+    const deleted = difference(props.networks, newValue);
+
+    if (deleted.length > 0) {
+      deleted.forEach(({ id }) => remove(id));
+    }
+
+    if (added.length > 0) {
+      added.forEach(({ networkType }) => {
+        add({ addressId: props.addressId, networkType });
+      });
+    }
   },
 });
 
@@ -39,24 +50,4 @@ const options = shallowRef(
 
 const { mutate: add } = useAddNetwork();
 const { mutate: remove } = useRemoveNetwork();
-
-const onUpdate = (value: { networkType: NetworkType }[]) => {
-  console.log(value);
-  value.forEach(({ networkType }) => {
-    const has =
-      networks.findIndex((net) => net.networkType === networkType) > -1;
-
-    if (!has) {
-      add({ addressId, networkType });
-    }
-  });
-
-  networks.forEach(({ networkType, id }) => {
-    const has = value.findIndex((net) => net.networkType === networkType) > -1;
-
-    if (!has && id) {
-      remove(id);
-    }
-  });
-};
 </script>

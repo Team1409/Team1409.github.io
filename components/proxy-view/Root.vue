@@ -5,11 +5,7 @@
     </template>
 
     <template #form="{ item, onSuccess }">
-      <UIForm
-        @finish="onSuccess"
-        :fields="fields"
-        :initial-data="item"
-      ></UIForm>
+      <ProxyViewForm :initial-data="item" @success="onSuccess" />
     </template>
   </CRUDView>
 </template>
@@ -23,11 +19,8 @@ import {
   useGetAllProxy,
 } from "../../queries";
 import type { CRUDService } from "../../types";
-import { proxyFields } from "./fields";
 // const { params } = useRoute();
 // console.log(params);
-
-const fields = shallowRef(proxyFields);
 
 const { mutateAsync: add } = useAddProxy();
 const { mutateAsync: remove } = useRemoveProxy();
