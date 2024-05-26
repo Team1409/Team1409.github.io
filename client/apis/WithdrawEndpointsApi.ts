@@ -15,12 +15,15 @@
 
 import * as runtime from '../runtime';
 import type {
-  WithdrawBatchRequest,
+  WithdrawManualBatchRequest,
+  WithdrawManualRequest,
   WithdrawRequest,
 } from '../models/index';
 import {
-    WithdrawBatchRequestFromJSON,
-    WithdrawBatchRequestToJSON,
+    WithdrawManualBatchRequestFromJSON,
+    WithdrawManualBatchRequestToJSON,
+    WithdrawManualRequestFromJSON,
+    WithdrawManualRequestToJSON,
     WithdrawRequestFromJSON,
     WithdrawRequestToJSON,
 } from '../models/index';
@@ -29,8 +32,12 @@ export interface WithdrawOperationRequest {
     withdrawRequest: WithdrawRequest;
 }
 
-export interface WithdrawBatchOperationRequest {
-    withdrawBatchRequest: WithdrawBatchRequest;
+export interface Withdraw1Request {
+    withdrawManualRequest: WithdrawManualRequest;
+}
+
+export interface WithdrawBatchRequest {
+    withdrawManualBatchRequest: WithdrawManualBatchRequest;
 }
 
 /**
@@ -73,11 +80,11 @@ export class WithdrawEndpointsApi extends runtime.BaseAPI {
 
     /**
      */
-    async withdrawBatchRaw(requestParameters: WithdrawBatchOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['withdrawBatchRequest'] == null) {
+    async withdraw1Raw(requestParameters: Withdraw1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['withdrawManualRequest'] == null) {
             throw new runtime.RequiredError(
-                'withdrawBatchRequest',
-                'Required parameter "withdrawBatchRequest" was null or undefined when calling withdrawBatch().'
+                'withdrawManualRequest',
+                'Required parameter "withdrawManualRequest" was null or undefined when calling withdraw1().'
             );
         }
 
@@ -88,11 +95,11 @@ export class WithdrawEndpointsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/withdraw-batch`,
+            path: `/withdraw1`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WithdrawBatchRequestToJSON(requestParameters['withdrawBatchRequest']),
+            body: WithdrawManualRequestToJSON(requestParameters['withdrawManualRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -100,7 +107,40 @@ export class WithdrawEndpointsApi extends runtime.BaseAPI {
 
     /**
      */
-    async withdrawBatch(requestParameters: WithdrawBatchOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    async withdraw1(requestParameters: Withdraw1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.withdraw1Raw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async withdrawBatchRaw(requestParameters: WithdrawBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['withdrawManualBatchRequest'] == null) {
+            throw new runtime.RequiredError(
+                'withdrawManualBatchRequest',
+                'Required parameter "withdrawManualBatchRequest" was null or undefined when calling withdrawBatch().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/withdraw1-batch`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: WithdrawManualBatchRequestToJSON(requestParameters['withdrawManualBatchRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async withdrawBatch(requestParameters: WithdrawBatchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.withdrawBatchRaw(requestParameters, initOverrides);
     }
 

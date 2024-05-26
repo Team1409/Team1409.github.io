@@ -19,6 +19,12 @@ import {
     AddressResponseApiFromJSONTyped,
     AddressResponseApiToJSON,
 } from './AddressResponseApi';
+import type { ExchangerType } from './ExchangerType';
+import {
+    ExchangerTypeFromJSON,
+    ExchangerTypeFromJSONTyped,
+    ExchangerTypeToJSON,
+} from './ExchangerType';
 import type { ProxyResponseApi } from './ProxyResponseApi';
 import {
     ProxyResponseApiFromJSON,
@@ -38,6 +44,12 @@ export interface AccountResponseApi {
      * @memberof AccountResponseApi
      */
     id?: number;
+    /**
+     * 
+     * @type {ExchangerType}
+     * @memberof AccountResponseApi
+     */
+    exchangerType?: ExchangerType;
     /**
      * 
      * @type {string}
@@ -82,6 +94,7 @@ export function AccountResponseApiFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'id': json['id'] == null ? undefined : json['id'],
+        'exchangerType': json['exchangerType'] == null ? undefined : ExchangerTypeFromJSON(json['exchangerType']),
         'name': json['name'] == null ? undefined : json['name'],
         'addresses': json['addresses'] == null ? undefined : ((json['addresses'] as Array<any>).map(AddressResponseApiFromJSON)),
         'proxy': json['proxy'] == null ? undefined : ProxyResponseApiFromJSON(json['proxy']),
@@ -96,6 +109,7 @@ export function AccountResponseApiToJSON(value?: AccountResponseApi | null): any
     return {
         
         'id': value['id'],
+        'exchangerType': ExchangerTypeToJSON(value['exchangerType']),
         'name': value['name'],
         'addresses': value['addresses'] == null ? undefined : ((value['addresses'] as Array<any>).map(AddressResponseApiToJSON)),
         'proxy': ProxyResponseApiToJSON(value['proxy']),

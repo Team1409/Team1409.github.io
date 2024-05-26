@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { ExchangerType } from './ExchangerType';
+import {
+    ExchangerTypeFromJSON,
+    ExchangerTypeFromJSONTyped,
+    ExchangerTypeToJSON,
+} from './ExchangerType';
+
 /**
  * 
  * @export
@@ -25,6 +32,12 @@ export interface UpsertAccountRequestApi {
      * @memberof UpsertAccountRequestApi
      */
     name?: string;
+    /**
+     * 
+     * @type {ExchangerType}
+     * @memberof UpsertAccountRequestApi
+     */
+    exchangerType?: ExchangerType;
     /**
      * 
      * @type {number}
@@ -51,6 +64,7 @@ export function UpsertAccountRequestApiFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'name': json['name'] == null ? undefined : json['name'],
+        'exchangerType': json['exchangerType'] == null ? undefined : ExchangerTypeFromJSON(json['exchangerType']),
         'proxyId': json['proxyId'] == null ? undefined : json['proxyId'],
     };
 }
@@ -62,6 +76,7 @@ export function UpsertAccountRequestApiToJSON(value?: UpsertAccountRequestApi | 
     return {
         
         'name': value['name'],
+        'exchangerType': ExchangerTypeToJSON(value['exchangerType']),
         'proxyId': value['proxyId'],
     };
 }

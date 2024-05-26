@@ -23,7 +23,9 @@ export const NetworkType = {
     Avax: 'Avax',
     Arbitrum: 'Arbitrum',
     Optimism: 'Optimism',
-    Solana: 'Solana'
+    Solana: 'Solana',
+    Ton: 'Ton',
+    Matic: 'Matic'
 } as const;
 export type NetworkType = typeof NetworkType[keyof typeof NetworkType];
 

@@ -13,12 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { ExchagerType } from './ExchagerType';
-import {
-    ExchagerTypeFromJSON,
-    ExchagerTypeFromJSONTyped,
-    ExchagerTypeToJSON,
-} from './ExchagerType';
 import type { NetworkType } from './NetworkType';
 import {
     NetworkTypeFromJSON,
@@ -34,16 +28,16 @@ import {
 export interface WithdrawRequest {
     /**
      * 
-     * @type {ExchagerType}
+     * @type {number}
      * @memberof WithdrawRequest
      */
-    exchanger?: ExchagerType;
+    accountFromId?: number;
     /**
      * 
-     * @type {string}
+     * @type {Array<number>}
      * @memberof WithdrawRequest
      */
-    address?: string;
+    accountToIds?: Array<number>;
     /**
      * 
      * @type {string}
@@ -61,7 +55,13 @@ export interface WithdrawRequest {
      * @type {number}
      * @memberof WithdrawRequest
      */
-    quantity?: number;
+    minQuantity?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof WithdrawRequest
+     */
+    maxQuantity?: number;
 }
 
 /**
@@ -81,11 +81,12 @@ export function WithdrawRequestFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'exchanger': json['exchanger'] == null ? undefined : ExchagerTypeFromJSON(json['exchanger']),
-        'address': json['address'] == null ? undefined : json['address'],
+        'accountFromId': json['accountFromId'] == null ? undefined : json['accountFromId'],
+        'accountToIds': json['accountToIds'] == null ? undefined : json['accountToIds'],
         'asset': json['asset'] == null ? undefined : json['asset'],
         'network': json['network'] == null ? undefined : NetworkTypeFromJSON(json['network']),
-        'quantity': json['quantity'] == null ? undefined : json['quantity'],
+        'minQuantity': json['minQuantity'] == null ? undefined : json['minQuantity'],
+        'maxQuantity': json['maxQuantity'] == null ? undefined : json['maxQuantity'],
     };
 }
 
@@ -95,11 +96,12 @@ export function WithdrawRequestToJSON(value?: WithdrawRequest | null): any {
     }
     return {
         
-        'exchanger': ExchagerTypeToJSON(value['exchanger']),
-        'address': value['address'],
+        'accountFromId': value['accountFromId'],
+        'accountToIds': value['accountToIds'],
         'asset': value['asset'],
         'network': NetworkTypeToJSON(value['network']),
-        'quantity': value['quantity'],
+        'minQuantity': value['minQuantity'],
+        'maxQuantity': value['maxQuantity'],
     };
 }
 

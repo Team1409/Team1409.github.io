@@ -19,12 +19,6 @@ import {
     CommonOrderTypeFromJSONTyped,
     CommonOrderTypeToJSON,
 } from './CommonOrderType';
-import type { ExchagerType } from './ExchagerType';
-import {
-    ExchagerTypeFromJSON,
-    ExchagerTypeFromJSONTyped,
-    ExchagerTypeToJSON,
-} from './ExchagerType';
 
 /**
  * 
@@ -34,10 +28,10 @@ import {
 export interface VolumeTradeRequest {
     /**
      * 
-     * @type {ExchagerType}
+     * @type {number}
      * @memberof VolumeTradeRequest
      */
-    exchanger?: ExchagerType;
+    accountId?: number;
     /**
      * 
      * @type {string}
@@ -81,7 +75,7 @@ export function VolumeTradeRequestFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'exchanger': json['exchanger'] == null ? undefined : ExchagerTypeFromJSON(json['exchanger']),
+        'accountId': json['accountId'] == null ? undefined : json['accountId'],
         'asset': json['asset'] == null ? undefined : json['asset'],
         'volume': json['volume'] == null ? undefined : json['volume'],
         'orderType': json['orderType'] == null ? undefined : CommonOrderTypeFromJSON(json['orderType']),
@@ -95,7 +89,7 @@ export function VolumeTradeRequestToJSON(value?: VolumeTradeRequest | null): any
     }
     return {
         
-        'exchanger': ExchagerTypeToJSON(value['exchanger']),
+        'accountId': value['accountId'],
         'asset': value['asset'],
         'volume': value['volume'],
         'orderType': CommonOrderTypeToJSON(value['orderType']),

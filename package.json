@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "openapi": "openapi-generator-cli generate --skip-validate-spec -g typescript-fetch -i https://9fd3-185-244-159-253.ngrok-free.app/swagger/v1/swagger.json -o ./client"
+    "openapi": "openapi-generator-cli generate --skip-validate-spec -g typescript-fetch -i http://localhost:8080/swagger/v1/swagger.json -o ./client -t ./openapi-templates"
   },
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",

@@ -15,29 +15,29 @@
 
 import * as runtime from '../runtime';
 import type {
-  VolumeTradeRequest,
+  SyncAddressRequest,
 } from '../models/index';
 import {
-    VolumeTradeRequestFromJSON,
-    VolumeTradeRequestToJSON,
+    SyncAddressRequestFromJSON,
+    SyncAddressRequestToJSON,
 } from '../models/index';
 
-export interface VolumeTradeOperationRequest {
-    volumeTradeRequest: VolumeTradeRequest;
+export interface SyncRequest {
+    syncAddressRequest: SyncAddressRequest;
 }
 
 /**
  * 
  */
-export class TradeEndpointsApi extends runtime.BaseAPI {
+export class SyncAddressesEndpointsApi extends runtime.BaseAPI {
 
     /**
      */
-    async volumeTradeRaw(requestParameters: VolumeTradeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['volumeTradeRequest'] == null) {
+    async syncRaw(requestParameters: SyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['syncAddressRequest'] == null) {
             throw new runtime.RequiredError(
-                'volumeTradeRequest',
-                'Required parameter "volumeTradeRequest" was null or undefined when calling volumeTrade().'
+                'syncAddressRequest',
+                'Required parameter "syncAddressRequest" was null or undefined when calling sync().'
             );
         }
 
@@ -48,11 +48,11 @@ export class TradeEndpointsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/bybit-volume-trade`,
+            path: `/sync-addresses`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: VolumeTradeRequestToJSON(requestParameters['volumeTradeRequest']),
+            body: SyncAddressRequestToJSON(requestParameters['syncAddressRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -60,8 +60,8 @@ export class TradeEndpointsApi extends runtime.BaseAPI {
 
     /**
      */
-    async volumeTrade(requestParameters: VolumeTradeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.volumeTradeRaw(requestParameters, initOverrides);
+    async sync(requestParameters: SyncRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.syncRaw(requestParameters, initOverrides);
     }
 
 }

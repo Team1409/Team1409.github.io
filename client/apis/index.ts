@@ -8,5 +8,6 @@ export * from './InfoEndpointsApi';
 export * from './LongShortTradeEndpointsApi';
 export * from './NetworkEndpointsApi';
 export * from './ProxyEndpointsApi';
+export * from './SyncAddressesEndpointsApi';
 export * from './TradeEndpointsApi';
 export * from './WithdrawEndpointsApi';
